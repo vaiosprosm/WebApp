@@ -11,9 +11,7 @@ from flask_login import login_required
 import pandas as pd
 
 
-home = Blueprint('home', __name__,
-    template_folder='templates/home',
-    static_folder='static')
+home = Blueprint('home', __name__)
 
 
 @home.route("/",methods=["GET"])
@@ -26,7 +24,7 @@ def root():
     dataframe=[df.iloc[i].to_dict() for i in range(shape_df[0])]
     df_headers = list(df.columns)
   
-    return render_template("index.html",dataframe=dataframe,df_headers=df_headers)
+    return render_template("home/index.html",dataframe=dataframe,df_headers=df_headers)
 
 
 

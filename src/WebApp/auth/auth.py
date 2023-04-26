@@ -21,9 +21,7 @@ from PIL import Image
 from WebApp.home import home
 
 
-auth = Blueprint('auth', __name__,
-    template_folder='templates/auth',
-    static_folder='static')
+auth = Blueprint('auth', __name__)
 
 def image_save(image, where, size):
     random_filename = secrets.token_hex(12)
@@ -64,7 +62,7 @@ def signup():
         return redirect(url_for('auth.login'))
     
 
-    return render_template("signup.html", form=form)
+    return render_template("auth/signup.html", form=form)
 
 
 
@@ -93,7 +91,7 @@ def login():
         else:
             flash("Η είσοδος του χρήστη ήταν ανεπιτυχής, παρακαλούμε δοκιμάστε ξανά με τα σωστά email/password.", "warning")
 
-    return render_template("login.html", form=form)
+    return render_template("auth/login.html", form=form)
 
 
 
@@ -134,4 +132,4 @@ def account():
         return redirect(url_for('auth.login'))
 
 
-    return render_template("account_update.html", form=form)
+    return render_template("auth/account_update.html", form=form)
