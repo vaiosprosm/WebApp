@@ -8,19 +8,35 @@
 
 {% block content %}
 
-{% include "home/includes/filter_table.html" %}
-
 {% if df_headers %}
   <br>
-  <div class="table-responsive" style="height:200">
-  <table class="table table-hover" id="df_headers">
-    <thead>
+
+  <div class="table-responsive">
+  <table class="table table-hover table-bordered" id="df_headers">
+    <thead style="background-color:black;color:white;">
       {% if df_headers %}
-          <tr style="background-color:black;color:white;">
+          <tr>
               {%for header in df_headers %}
-                  <th scope="col">{{ header}}</th>
+                  <th class="text-center" scope="col">
+                      <div class="row">
+                          <div class="col-8">
+                           {{ header }}
+                          </div>
+                          <div class="col-2">
+                            <a  href="{{ url_for('home.taksinomisi_by',column=header) }}">
+                              <!-- Πηγή https://icons.getbootstrap.com/icons/arrow-down-short/ -->
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                              </svg>
+                            </a>
+                        </div>   
+                      </div>  
+                   </th>
               {% endfor %}
           </tr>
+          
+          {% include "home/includes/filter_table.html" %}
+        
       {% endif %}
     </thead>
     <tbody>
@@ -28,7 +44,7 @@
           {% for row in dataframe %}
             <tr>
               {% for key,value in row.items() %}
-                <td style="font-size:16px;"><strong>{{ value }}</strong></td>
+                <td style="font-size:16px;">{{ value }}</td>
               {% endfor %}
 
             </tr>
@@ -40,6 +56,7 @@
 {% endif %}
 
 
+</script>
 
 {% endblock content %}
 
