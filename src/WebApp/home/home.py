@@ -1,13 +1,10 @@
-from flask import (Blueprint,render_template,request,)
+from flask import (Blueprint,render_template,request)
 from flask_login import login_required
 import numpy as np
 from natsort import index_natsorted
 from WebApp.home import components as comp
 
-
 home = Blueprint('home', __name__)
-
-
 
 @home.route("/",methods=["GET"])
 @home.route("/home",methods=["GET"])
