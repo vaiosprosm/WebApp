@@ -6,7 +6,7 @@ from flask import (Blueprint,render_template,
 
 import html
 
-from WebApp.forms import SignupForm, LoginForm, AccountUpdateForm
+from WebApp.auth.forms import SignupForm, LoginForm, AccountUpdateForm
 
 from WebApp import app, db, bcrypt
 
