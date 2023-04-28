@@ -31,7 +31,7 @@ login_manager.login_message = "Παρακαλούμε κάντε login για ν
 
 
 
-from WebApp import models
+from WebApp import models,handlers
 
 from WebApp.auth.auth import auth
 from WebApp.home.home import home
