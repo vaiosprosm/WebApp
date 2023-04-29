@@ -14,7 +14,7 @@ def root():
     
     dataframe=[df.iloc[i].to_dict() for i in range(len(df))]
     df_headers = list(df.columns)
-  
+    print(df_headers)
     return render_template("home/index.html",dataframe=dataframe,df_headers=df_headers,datalist_options=df)
 
 
