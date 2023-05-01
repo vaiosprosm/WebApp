@@ -6,3 +6,22 @@ def get_google_sheet():
     df_headers = list(df.columns)
     
     return df,df_headers
+
+
+def search_filter(df,df_headers,search):
+    Filter=[]
+    for header in df_headers:
+        if df[header].dtypes=="int64":
+            df[header] = df[header].values.astype(str)
+        new=df[df[header].str.contains(search)]
+        new1=[{i:new.iloc[i].to_dict()} for i in range(len(new))]
+        Filter.append(new1)
+    adict={}    
+    for i in Filter:
+        for j,k in enumerate(i):
+            adict[j]=k[j]
+    query=[]        
+    for i in adict.values():
+        query.append(i)
+        
+    return query

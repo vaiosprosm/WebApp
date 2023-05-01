@@ -7,54 +7,39 @@
 
 
 {% block content %}
-
-{% if df_headers %}
-  <br>
-
-  <div class="table-responsive">
-  <table class="table table-hover table-bordered" id="df_headers">
-    <thead style="background-color:black;color:white;">
-      {% if df_headers %}
-          <tr>
-              {%for header in df_headers %}
-                  <th class="text-center" scope="col">
-                      <div class="row">
-                          <div class="col-8">
-                           {{ header }}
-                          </div>
-                          <div class="col-2">
-                            <a  href="{{ url_for('home.taksinomisi_by',column=header) }}">
-                              <!-- Πηγή https://icons.getbootstrap.com/icons/arrow-down-short/ -->
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
-                              <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
-                              </svg>
-                            </a>
-                        </div>   
-                      </div>  
-                   </th>
-              {% endfor %}
-          </tr>
-          
-          {% include "home/includes/filter_table.html" %}
-        
-      {% endif %}
+  <table id="data" class="table table-striped">
+    <thead>
+      <tr>
+        {% for header in headers_th %}
+        <th>{{ header }}</th>
+        {% endfor %}
+      </tr>
     </thead>
     <tbody>
-      {% if dataframe %}
-          {% for row in dataframe %}
-            <tr>
-              {% for key,value in row.items() %}
-                <td style="font-size:16px;">{{ value }}</td>
-              {% endfor %}
-
-            </tr>
-          {% endfor %}
-      {% endif %}
     </tbody>
   </table>
-</div>
-{% endif %}
+{% endblock %}
 
-{% endblock content %}
+{% block scripts %}
+<script>
+
+    // Για μελλοντική χρήση, σε περίπτωση που προστεθούν και άλλα google_sheets
+    // με διαφορετκό μήκος και διαφορετκές ονομασίες  Headers.
+    // Δοκιμαστικό 
+    const data_header = {{ headers_th_javascript|safe }}
+    let header = []
+    for (let i = 0; i < data_header.length; i++) {
+      header.push({data : data_header[i]})
+    }
+
+    $(document).ready(function () {
+      $('#data').DataTable({
+        ajax: '/home/data',
+        serverSide: true,
+        columns: header,
+      });
+    });
+  </script>
+{% endblock %}
 
 
