@@ -38,7 +38,6 @@ def root():
 @login_required
 def data():
     df, df_headers = comp.get_google_sheet()
-
     query = [df.iloc[i].to_dict() for i in range(len(df))]
     len_query = len(query)
     df_headers = list(df.columns)
@@ -72,6 +71,7 @@ def data():
     # filter
     search = request.args.get("search[value]")
     if search:
+        search=search.upper()
         query = comp.search_filter(df, df_headers, search)
 
     # pagination

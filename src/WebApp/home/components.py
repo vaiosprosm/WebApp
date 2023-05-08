@@ -2,13 +2,19 @@ import pandas as pd
 
 
 def get_google_sheet():
-    sheet_id = "1deLM8E8weSnd4nbK1byV8TSlUkWuy7dqwmSfHgmneiw"
+    sheet_id = "1FR9pyvlyxaEU8tDVG2bkZi0TDNvq-97lLc191LlXrTE"
     df = pd.read_csv(
         f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
     )
-    df_headers = list(df.columns)
+    df.fillna("", inplace = True)
 
-    return df, df_headers
+    df_new = df.iloc[:, 0:4]
+    df_new.columns =['Place', 'Deprtment', 'Phone Number', 'Description']
+    df_headers = list(df_new.columns)
+    
+    for i in df_headers:
+        print(i)
+    return df_new, df_headers
 
 
 def search_filter(df, df_headers, search):
